@@ -1,0 +1,13 @@
+@import 'reset';
+
+body {
+  font-family: -apple-system, 'Helvetica Neue', sans-serif;
+  
+  // mock styles
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+}

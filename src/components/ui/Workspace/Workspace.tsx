@@ -9,7 +9,6 @@ export const Workspace = () => {
     return(
         <div>
             <canvas className="primary-canvas"></canvas>
-            <p>{ editingState }</p>
             <Toolbar editingState = { editingState} setEditingState={ setEditingState }/>
         </div>
     );

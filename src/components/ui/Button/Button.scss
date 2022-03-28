@@ -1,12 +1,12 @@
 .btn {
     border: none;
-    color: white;
     background-color: transparent;
+    color: rgba(0, 0, 0, 0.40);
     padding: 10px 20px;
     border-radius: 3px;
     cursor: pointer;
 }
 
 .active {
-    color: rgba(0, 0, 0, 0.26);
+    color: rgba(255, 255, 255, 0.80);
 }

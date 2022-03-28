@@ -14,9 +14,8 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
 
     return (
-        <button className={ selected ? "btn mdc-icon-button material-icons active" : "btn mdc-icon-button material-icons" } onClick={ onClick }>
+        <button className={ selected ? "btn mdc-icon-button--on material-icons active" : "btn mdc-icon-button material-icons" } onClick={ onClick }>
             <div className="mdc-icon-button"></div>
-            { console.log(selected + glyph)}
             { glyph }
         </button>
     )

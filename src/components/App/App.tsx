@@ -1,13 +1,11 @@
-import { Button } from '../ui/Button/Button';
-import './App.scss';
+import { Workspace } from '../ui/Workspace/Workspace'
+
+import './App.scss'
 
 export const App = () => {
   return (
-    <div>
-      <h1>
-        Hello, World
-      </h1>
-      <Button label="Mock Component" />
+    <div className="rootContainer">
+        <Workspace />
     </div>
   );
-};
+}

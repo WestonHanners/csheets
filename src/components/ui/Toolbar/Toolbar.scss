@@ -1,0 +1,26 @@
+.toolbar-palette {
+    border-radius: 12px;
+    background-color: gray;
+    position: fixed;
+    display: block;
+    font-size: 1ch;
+    padding-block: 1em;
+    width: 33%;
+    padding-left: auto;
+    padding-right: auto;
+    left: 50%;
+    transform: translateX(-55%);
+    bottom: 5%;
+    border-width: 1px;
+    border-color: darkgray;
+}
+
+ul {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    list-style-type: none;
+    flex-flow: row nowrap;
+    min-height: 2em;
+    margin-inline: auto;
+}

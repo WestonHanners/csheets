@@ -14,9 +14,8 @@ export const Sheet: React.FC<SheetProps> = ({
     drawables = []
 }) => {
 
-    let isDrawing: boolean = false;
     let lastFrame: DOMHighResTimeStamp = 0;
-    var currentDrawable: Drawable;
+    var currentDrawable: Drawable | null;
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -29,6 +28,7 @@ export const Sheet: React.FC<SheetProps> = ({
         if (canvasRef.current == null) {
             return;
         }
+
         const canvas = canvasRef.current
 
         // TODO: find a better way to do this.
@@ -58,9 +58,20 @@ export const Sheet: React.FC<SheetProps> = ({
 
         const context = canvasRef.current?.getContext("2d")!;
 
-        isDrawing = true;
         let currentPosition = Vector.fromMouseEvent(event);
         currentDrawable = new VectorDrawing(currentPosition, []);
+        currentDrawable.begin(context, currentPosition)
+    }
+
+    function onDraw(event: any) {
+        if (currentDrawable == null) {
+            return
+        }
+
+        const context = canvasRef.current?.getContext("2d")!
+
+        let currentPosition = Vector.fromMouseEvent(event)
+        currentDrawable?.continue(context, currentPosition)
     }
 
     function onEndDrawing(event: any) {
@@ -73,18 +84,6 @@ export const Sheet: React.FC<SheetProps> = ({
         
         drawables.push(currentDrawable)
         currentDrawable = null
-        isDrawing = false
-    }
-
-    function onDraw(event: any) {
-        if (!isDrawing || currentDrawable == null) {
-            return
-        }
-
-        const context = canvasRef.current?.getContext("2d")!
-
-        let currentPosition = Vector.fromMouseEvent(event)
-        currentDrawable?.continue(context, currentPosition)
     }
 
     window.addEventListener('resize', canvasResize)

@@ -10,31 +10,35 @@ export class VectorDrawing extends Drawable {
     }
 
     begin(context: CanvasRenderingContext2D, point: Vector) {
-        context?.beginPath()
-        context?.moveTo(point.x, point.y)
+        context.lineCap = "round"
+        context.beginPath()
+        context.moveTo(point.x, point.y)
+        
+        this.path.push(point)
     }
 
     continue(context: CanvasRenderingContext2D, point: Vector) {
-        context?.lineTo(point.x, point.y)
-        context?.stroke()
+        context.lineTo(point.x, point.y)
+        context.stroke()
+
+        this.path.push(point)
     }
 
     end(context: CanvasRenderingContext2D) {
-        context?.closePath()
+        console.log("Nothing to do... yet.")
     }
 
-    draw(context: CanvasRenderingContext2D, dt: DOMHighResTimeStamp) {
-        context.beginPath()
-        
+    draw(context: CanvasRenderingContext2D, dt: DOMHighResTimeStamp) {      
         var path: Array<Vector> = this.path;
 
-        context.save()
         const firstPoint = path.pop()
 
         if (firstPoint == null) {
             return
-        
         }
+        
+        context.save()
+        context.beginPath()
         context.moveTo(firstPoint.x, firstPoint.y)
 
         path.forEach(point => {

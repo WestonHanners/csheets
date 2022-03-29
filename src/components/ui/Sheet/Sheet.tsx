@@ -81,7 +81,6 @@ export const Sheet: React.FC<SheetProps> = ({
         }
 
         const context = canvasRef.current?.getContext("2d")!;
-        context.translate(0.5, 0.5);
         let currentPosition = Vector.fromMouseEvent(event);
         let drawable = newDrawable(currentPosition)
 

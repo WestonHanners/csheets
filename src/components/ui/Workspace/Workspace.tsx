@@ -11,7 +11,7 @@ export const Workspace = () => {
 
     return(
         <div>
-            <Sheet editingType={ editingType } />
+            <Sheet editingType={ editingType } drawables={ [] } />
             <Toolbar editingType = { editingType } setEditingType={ setEditingType }/>
         </div>
     );

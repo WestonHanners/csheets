@@ -7,11 +7,13 @@ import { Vector } from '../../../classes/Vector';
 type SheetProps = {
     editingType: EditingType
     drawables: Array<Drawable>
+    setDrawables: React.Dispatch<React.SetStateAction<Drawable[]>>
 }
 
 export const Sheet: React.FC<SheetProps> = ({
     editingType = EditingType.None,
-    drawables = []
+    drawables = [],
+    setDrawables
 }) => {
 
     let lastFrame: DOMHighResTimeStamp = 0;
@@ -54,7 +56,13 @@ export const Sheet: React.FC<SheetProps> = ({
             drawable.draw(context, dt);
         });
 
+        currentDrawable?.draw(context,dt)
+
         window.requestAnimationFrame(redrawWrapper)
+    }
+
+    function saveDrawing() {
+        setDrawables(drawables)
     }
 
     function canvasResize(event: any) {
@@ -73,7 +81,7 @@ export const Sheet: React.FC<SheetProps> = ({
         }
 
         const context = canvasRef.current?.getContext("2d")!;
-
+        context.translate(0.5, 0.5);
         let currentPosition = Vector.fromMouseEvent(event);
         let drawable = newDrawable(currentPosition)
 
@@ -110,7 +118,7 @@ export const Sheet: React.FC<SheetProps> = ({
 
     window.addEventListener('resize', canvasResize)
     // TODO: This feature is not yet ready.
-    // window.requestAnimationFrame(redrawWrapper)
+    window.requestAnimationFrame(redrawWrapper)
 
     return (
         <div>

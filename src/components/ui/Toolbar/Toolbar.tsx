@@ -8,6 +8,7 @@ type ToolbarProps = {
 }
 
 export const Toolbar: React.FC<ToolbarProps> = ({ editingType, setEditingType }) => {
+    
     function clickedToolbarButton(editingType: EditingType) {
         setEditingType(editingType);
     }

@@ -25,7 +25,9 @@ export class VectorDrawing extends Drawable {
         this.path.push(point)
     }
 
-    continue(context: CanvasRenderingContext2D, point: Vector) {
+    continue(context: CanvasRenderingContext2D, event: any) {
+        let point = Vector.fromMouseEvent(event)
+
         context.lineTo(point.x, point.y)
         context.stroke()
 
@@ -35,7 +37,7 @@ export class VectorDrawing extends Drawable {
     }
 
     end(context: CanvasRenderingContext2D) {
-        console.log("Nothing to do... yet.")
+        // No operation
     }
 
     draw(context: CanvasRenderingContext2D, dt: DOMHighResTimeStamp) {      

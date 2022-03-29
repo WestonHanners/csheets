@@ -15,8 +15,8 @@ export const Toolbar: React.FC<ToolbarProps> = ({ editingType, setEditingType })
     return (
         <div className="toolbar-palette">
             <ul>
-                <Button glyph="image" selected={ editingType===EditingType.Image } editingType={ EditingType.Image } onClick={ clickedToolbarButton } />
                 <Button glyph="brush" selected={ editingType===EditingType.Vector } editingType={ EditingType.Vector } onClick={ clickedToolbarButton } />    
+                <Button glyph="image" selected={ editingType===EditingType.Image } editingType={ EditingType.Image } onClick={ clickedToolbarButton } />
                 <Button glyph="title" selected={ editingType===EditingType.Expression } editingType={ EditingType.Expression } onClick={ clickedToolbarButton } />    
             </ul>
         </div>

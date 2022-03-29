@@ -10,7 +10,10 @@ export class VectorDrawing extends Drawable {
     }
 
     begin(context: CanvasRenderingContext2D, point: Vector) {
-        context.lineCap = "round"
+        context.lineCap = "round";
+        context.lineJoin = "round";
+        context.lineWidth = 3;
+        context.strokeStyle = 'rgba(30, 30, 30, 1)';
         context.beginPath()
         context.moveTo(point.x, point.y)
         

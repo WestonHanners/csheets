@@ -3,8 +3,8 @@ export class Vector {
     y: number
     
     constructor(x = 0, y = 0) {
-        this.x = x;
-        this.y = y;
+        this.x = Math.floor(x);
+        this.y = Math.floor(y);
     }
 
     static fromMouseEvent(event: MouseEvent): Vector {

@@ -19,6 +19,22 @@ export const Sheet: React.FC<SheetProps> = ({
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
+    function newDrawable(position: Vector): Drawable | null {
+        switch (editingType) {
+            case EditingType.None:
+                break;
+            case EditingType.Vector:
+                return new VectorDrawing(position, []);
+            case EditingType.Image:
+                break
+            case EditingType.Expression:
+                break
+        }
+
+        console.log("Unimplemented Drawable: " + editingType)
+        return null
+    }
+
     function redrawWrapper(timestamp: DOMHighResTimeStamp) {
         let dt = lastFrame - timestamp;
         redraw(dt);
@@ -30,9 +46,9 @@ export const Sheet: React.FC<SheetProps> = ({
         }
 
         const canvas = canvasRef.current
-
         // TODO: find a better way to do this.
         const context = canvas.getContext("2d")!
+        context.clearRect(0, 0, canvas.width, canvas.height);
 
         drawables.forEach(drawable => {
             drawable.draw(context, dt);
@@ -46,9 +62,9 @@ export const Sheet: React.FC<SheetProps> = ({
             return;
         }
 
-        console.log("resizing");
-        canvasRef.current.width = window.innerWidth * window.devicePixelRatio;
-        canvasRef.current.height = window.innerHeight * window.devicePixelRatio;
+        canvasRef.current.width = window.innerWidth;// * window.devicePixelRatio;
+        canvasRef.current.height = window.innerHeight;// * window.devicePixelRatio;
+        console.log("Resized: " + canvasRef.current.width + " " + canvasRef.current.height);
     }
 
     function onStartDrawing(event: any) {     
@@ -59,7 +75,13 @@ export const Sheet: React.FC<SheetProps> = ({
         const context = canvasRef.current?.getContext("2d")!;
 
         let currentPosition = Vector.fromMouseEvent(event);
-        currentDrawable = new VectorDrawing(currentPosition, []);
+        let drawable = newDrawable(currentPosition)
+
+        if (drawable == null) {
+            return;
+        }
+
+        currentDrawable = drawable
         currentDrawable.begin(context, currentPosition)
     }
 
@@ -87,6 +109,8 @@ export const Sheet: React.FC<SheetProps> = ({
     }
 
     window.addEventListener('resize', canvasResize)
+    // TODO: This feature is not yet ready.
+    // window.requestAnimationFrame(redrawWrapper)
 
     return (
         <div>

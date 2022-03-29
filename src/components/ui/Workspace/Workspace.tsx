@@ -7,7 +7,7 @@ import './Workspace.scss'
 
 export const Workspace = () => {
     
-    const [editingType, setEditingType] = useState(EditingType.None)
+    const [editingType, setEditingType] = useState(EditingType.Vector)
 
     return(
         <div>

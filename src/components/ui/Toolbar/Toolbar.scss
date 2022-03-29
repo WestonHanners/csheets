@@ -1,13 +1,10 @@
 .toolbar-palette {
     border-radius: 12px;
-    background-color: gray;
+    background-color: rgba(140, 140, 140, 0.95);
     position: fixed;
     display: block;
-    font-size: 1ch;
-    padding-block: 1em;
-    width: 33%;
-    padding-left: auto;
-    padding-right: auto;
+    padding-left: 10px;
+    padding-right: 10px;
     left: 50%;
     transform: translateX(-55%);
     bottom: 5%;

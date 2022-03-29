@@ -62,8 +62,8 @@ export const Sheet: React.FC<SheetProps> = ({
             return;
         }
 
-        canvasRef.current.width = window.innerWidth;// * window.devicePixelRatio;
-        canvasRef.current.height = window.innerHeight;// * window.devicePixelRatio;
+        canvasRef.current.width = window.innerWidth;
+        canvasRef.current.height = window.innerHeight;
         console.log("Resized: " + canvasRef.current.width + " " + canvasRef.current.height);
     }
 

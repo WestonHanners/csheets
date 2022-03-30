@@ -9,16 +9,17 @@ type SheetProps = {
     editingType: EditingType
     drawables: Array<Drawable>
     setDrawables: React.Dispatch<React.SetStateAction<Drawable[]>>
+    currentDrawable: Drawable | null
 }
 
 export const Sheet: React.FC<SheetProps> = ({
     editingType = EditingType.None,
     drawables = [],
-    setDrawables
+    setDrawables,
+    currentDrawable = null
 }) => {
 
     let lastFrame: DOMHighResTimeStamp = 0;
-    var currentDrawable: Drawable | null;
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -73,53 +74,6 @@ export const Sheet: React.FC<SheetProps> = ({
 
         canvasRef.current.width = window.innerWidth;
         canvasRef.current.height = window.innerHeight;
-        console.log("Resized: " + canvasRef.current.width + " " + canvasRef.current.height);
-    }
-
-    function onMouseDown(event: any) {
-        if (editingType === EditingType.Vector) {
-            onStartDrawing(event)
-            return;
-        }
-        if (editingType === EditingType.Expression) {
-            if (currentDrawable == null) {
-                onStartDrawing(event)
-            } else {
-                onEndDrawing(event)
-            }
-        }
-    }
-
-    function onMouseMove(event: any) {
-        if (editingType === EditingType.Vector) {
-            onDraw(event)
-        }
-    }
-
-    function onMouseUp(event: any) {
-        if (editingType === EditingType.Vector) {
-            onEndDrawing(event)
-        }
-    }
-
-    function onMouseOut(event: any) {
-        if (editingType === EditingType.Vector) {
-            onEndDrawing(event)
-        }
-    }
-
-    function onKeyDown(event: KeyboardEvent) {
-        if (editingType === EditingType.Vector) {
-            return // Do Nothing Here.
-        }
-        if (editingType === EditingType.Expression) {
-            if (event.key === "enter") {
-                onEndDrawing(event)
-            }else {
-                onDraw(event)
-            }
-            return
-        }
     }
 
     function onStartDrawing(event: any) {     
@@ -156,29 +110,32 @@ export const Sheet: React.FC<SheetProps> = ({
 
         const context = canvasRef.current?.getContext("2d")!
         currentDrawable.end(context)
-        
 
         drawables.push(currentDrawable)
         saveDrawing()
         currentDrawable = null
     }
 
+    // Setup Event Listeners
     window.addEventListener("keydown", onKeyDown);
     window.addEventListener('resize', canvasResize)
-    // TODO: This feature is not yet ready.
+
+    // This call ensures the drawing is not lost on state
+    // resets.
     window.requestAnimationFrame(redrawWrapper)
 
     return (
-        <div contentEditable="true">
-            <canvas ref={canvasRef}
-                    width={window.innerWidth}
-                    height={window.innerHeight}
-                    className="primary-canvas" 
-                    onMouseDown={ onMouseDown } 
-                    onMouseMove={ onMouseMove }
-                    onMouseUp={ onMouseUp } 
-                    onMouseOut={onMouseOut }
+        <div>
+            <canvas ref={ canvasRef }
+                width={ window.innerWidth }
+                height={ window.innerHeight }
+                className="primary-canvas" 
+                onMouseDown={ onMouseDown } 
+                onMouseMove={ onMouseMove }
+                onMouseUp={ onMouseUp } 
+                onMouseOut={onMouseOut }
             >
+                This Application Requires Canvas
             </canvas>
         </div>
     );
